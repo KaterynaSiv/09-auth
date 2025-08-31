@@ -10,20 +10,20 @@ import {
 //----------------------------------------------
 
 export const fetchNotes = async (
-  search: string = "",
-  page: number = 1,
-  perPage: number = 12,
+  search: string,
+  page: number,
+  perPage: number,
   tag?: NoteTag
 ): Promise<FetchNotesResponse> => {
-  const { data: raw } = await api.get<FetchNotesResponse>("/notes", {
+  const { data } = await api.get<FetchNotesResponse>("/notes", {
     params: {
       ...(search !== "" && { search: search }),
+      ...(tag && { tag }),
       page,
       perPage,
-      ...(tag && { tag }),
     },
   });
-  return { notes: raw.notes, totalPages: raw.totalPages };
+  return data;
 };
 
 export const createNote = async (newNote: NewNote): Promise<NewNote> => {

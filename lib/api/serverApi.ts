@@ -6,24 +6,24 @@ import { CheckSessionResponse, UpdateUserProfile, User } from "@/types/user";
 //----------------------------------------------
 
 export const fetchNotesServer = async (
-  search: string = "",
-  page: number = 1,
-  perPage: number = 12,
+  search: string,
+  page: number,
+  perPage: number,
   tag?: NoteTag
 ): Promise<FetchNotesResponse> => {
   const cookiesData = await cookies();
-  const { data: raw } = await api.get<FetchNotesResponse>("/notes", {
+  const { data } = await api.get<FetchNotesResponse>("/notes", {
     params: {
-      ...(search !== "" && { search }),
+      ...(search !== "" && { search: search }),
+      ...(tag && { tag }),
       page,
       perPage,
-      ...(tag && { tag }),
     },
     headers: {
       Cookie: cookiesData.toString(),
     },
   });
-  return { notes: raw.notes, totalPages: raw.totalPages };
+  return data;
 };
 
 export const createNoteServer = async (newNote: NewNote): Promise<NewNote> => {

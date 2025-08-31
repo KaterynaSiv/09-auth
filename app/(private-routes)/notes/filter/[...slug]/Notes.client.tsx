@@ -3,18 +3,18 @@
 import css from "./NotesPage.module.css";
 
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { fetchNotes } from "@/lib/api/clientApi";
 import { useDebounce } from "use-debounce";
 import { useState, useEffect } from "react";
 
 import SearchBox from "@/components/SearchBox/SearchBox";
-import Pagination from "@/components/Pagination/Pagination";
 import NoteList from "@/components/NoteList/NoteList";
+import Pagination from "@/components/Pagination/Pagination";
 
 import { MoonLoader } from "react-spinners";
 import { Toaster, toast } from "react-hot-toast";
 import { FetchNotesResponse, NoteTag } from "@/types/note";
 import Link from "next/link";
+import { fetchNotes } from "@/lib/api/clientApi";
 
 interface NotesClientProps {
   initialData: FetchNotesResponse;
