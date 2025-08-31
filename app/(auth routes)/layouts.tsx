@@ -13,7 +13,6 @@ export default function AuthRoutesLayout({ children }: Props) {
   const router = useRouter();
 
   useEffect(() => {
-    // refresh викличе перезавантаження даних
     router.refresh();
     setLoading(false);
   }, [router]);
