@@ -5,17 +5,31 @@ import css from "./SignUpPage.module.css";
 import { register } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
 import { useAuthZustandStore } from "@/lib/store/authStore";
+import { useState } from "react";
+import { ApiError } from "@/lib/api/api";
 
 export default function SignUp() {
   const router = useRouter();
   const setUser = useAuthZustandStore((state) => state.setUser);
+  const [error, setError] = useState<string | null>(null);
 
   const handleRegister = async (formData: FormData) => {
-    const data = Object.fromEntries(formData) as RequestUserData;
-    const response = await register(data);
-    if (response) {
-      setUser(response);
-      router.push("/profile");
+    try {
+      const data = Object.fromEntries(formData) as RequestUserData;
+      const response = await register(data);
+
+      if (response) {
+        setUser(response);
+        router.push("/profile");
+      } else {
+        setError("Wrong email of password");
+      }
+    } catch (error) {
+      setError(
+        (error as ApiError).response?.data?.error ??
+          (error as ApiError).message ??
+          "Something went wrong"
+      );
     }
   };
 
@@ -51,7 +65,7 @@ export default function SignUp() {
           </button>
         </div>
 
-        <p className={css.error}>Error</p>
+        {error && <p className={css.error}>{error}</p>}
       </form>
     </main>
   );

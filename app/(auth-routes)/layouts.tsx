@@ -1,7 +1,22 @@
-export default function AuthRoutesLayout({
-  children,
-}: {
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+type Props = {
   children: React.ReactNode;
-}) {
-  return <div className="auth-layout">{children}</div>;
+};
+
+export default function AuthRoutesLayout({ children }: Props) {
+  const [loading, setLoading] = useState(true);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    // refresh викличе перезавантаження даних
+    router.refresh();
+    setLoading(false);
+  }, [router]);
+
+  return <>{loading ? <div>Loading...</div> : children}</>;
 }

@@ -3,8 +3,8 @@ import { api } from "./api";
 import {
   CheckSessionResponse,
   RequestUserData,
+  UpdateUserProfile,
   User,
-  UserProfile,
 } from "@/types/user";
 
 //----------------------------------------------
@@ -51,17 +51,21 @@ export const deleteNote = async (noteId: string): Promise<Note> => {
   return data;
 };
 
+//--------------------
+
 export const getUserProfile = async (): Promise<User> => {
   const { data } = await api.get<User>("/users/me");
   return data;
 };
 
 export const updateUserProfile = async (
-  updatedData: UserProfile
-): Promise<UserProfile> => {
-  const { data } = await api.patch<UserProfile>("/users/me", updatedData);
+  updatedData: UpdateUserProfile
+): Promise<User> => {
+  const { data } = await api.patch<User>("/users/me", updatedData);
   return data;
 };
+
+//--------------------
 
 export const login = async (payload: RequestUserData): Promise<User> => {
   const { data } = await api.post<User>("/auth/login", payload);

@@ -1,18 +1,7 @@
 export interface User {
-  email: string;
-  password: string;
-  avatar: string;
-}
-
-export interface UserProfile {
   username: string;
   email: string;
   avatar: string;
-}
-
-export interface RegisterLoginUserData {
-  username: string;
-  email: string;
 }
 
 export type RequestUserData = {
@@ -23,3 +12,7 @@ export type RequestUserData = {
 export interface CheckSessionResponse {
   success: boolean;
 }
+
+export type UpdateUserProfile = {
+  username: string;
+};

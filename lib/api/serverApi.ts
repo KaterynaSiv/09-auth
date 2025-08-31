@@ -1,7 +1,7 @@
 import { FetchNotesResponse, NewNote, Note, NoteTag } from "@/types/note";
 import { api } from "./api";
 import { cookies } from "next/headers";
-import { CheckSessionResponse, UserProfile } from "@/types/user";
+import { CheckSessionResponse, UpdateUserProfile, User } from "@/types/user";
 
 //----------------------------------------------
 
@@ -72,9 +72,11 @@ export const deleteNoteServer = async (noteId: string): Promise<Note> => {
   return data;
 };
 
-export const getUserProfileServer = async (): Promise<UserProfile> => {
+//--------------------
+
+export const getUserProfileServer = async (): Promise<User> => {
   const cookiesData = await cookies();
-  const { data } = await api.get<UserProfile>("/users/me", {
+  const { data } = await api.get<User>("/users/me", {
     headers: {
       Cookie: cookiesData.toString(),
     },
@@ -83,16 +85,18 @@ export const getUserProfileServer = async (): Promise<UserProfile> => {
 };
 
 export const updateUserProfileServer = async (
-  updatedData: UserProfile
-): Promise<UserProfile> => {
+  updatedData: UpdateUserProfile
+): Promise<User> => {
   const cookiesData = await cookies();
-  const { data } = await api.patch<UserProfile>("/users/me", updatedData, {
+  const { data } = await api.patch<User>("/users/me", updatedData, {
     headers: {
       Cookie: cookiesData.toString(),
     },
   });
   return data;
 };
+
+//--------------------
 
 export const logoutServer = async (): Promise<void> => {
   const cookiesData = await cookies();
