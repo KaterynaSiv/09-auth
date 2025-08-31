@@ -2,12 +2,12 @@
 
 import css from "./NoteForm.module.css";
 
-import { createNote } from "@/lib/api";
-import type { NewNoteValues } from "../../types/note";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useNoteDraft } from "@/lib/store/noteStore";
 import { ChangeEvent } from "react";
+import { NewNoteValues } from "@/types/note";
+import { createNote } from "@/lib/api/clientApi";
 
 export default function NoteForm() {
   const queryClient = useQueryClient();

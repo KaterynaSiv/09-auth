@@ -2,6 +2,7 @@ import Link from "next/link";
 import css from "./Header.module.css";
 import TagsMenu from "../TagsMenu/TagsMenu";
 import { NoteTag } from "@/types/note";
+import AuthNavigation from "../AuthNavigation/AuthNavigation";
 
 const tagsOption: NoteTag[] = [
   "Todo",
@@ -25,6 +26,7 @@ export default function Header() {
           <li>
             <TagsMenu tagsOption={tagsOption} />
           </li>
+          <AuthNavigation />
         </ul>
       </nav>
     </header>

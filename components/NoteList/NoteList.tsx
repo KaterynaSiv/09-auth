@@ -2,10 +2,10 @@ import css from "./NoteList.module.css";
 
 import type { Note } from "../../types/note";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteNote } from "@/lib/api";
 
 import { toast } from "react-hot-toast";
 import Link from "next/link";
+import { deleteNote } from "@/lib/api/clientApi";
 
 interface NotesListProps {
   notes: Note[];
@@ -42,6 +42,9 @@ export default function NoteList({ notes }: NotesListProps) {
             >
               Delete
             </button>
+            {/* <Link href={`/notes/${note.id}/edit`} className={css.buttonEdit}>
+              Edit
+            </Link> */}
           </div>
         </li>
       ))}

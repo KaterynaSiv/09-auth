@@ -14,3 +14,14 @@ export type NewNoteValues = {
   content: string;
   tag: NoteTag;
 };
+
+export interface FetchNotesResponse {
+  notes: Note[];
+  totalPages: number;
+}
+
+export interface NewNote {
+  title: string;
+  content: string;
+  tag: NoteTag;
+}
